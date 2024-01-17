@@ -1,70 +1,82 @@
 'use client'
 
-import L from 'leaflet'
-import MarkerIcon from '../node_modules/leaflet/dist/images/marker-icon.png'
-import MarkerShadow from '../node_modules/leaflet/dist/images/marker-shadow.png'
+import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet'
+import { useEffect, useState } from 'react'
+import { LatLngExpression } from 'leaflet'
+import { CustomMarker } from './CustomMarker'
+
 import 'leaflet/dist/leaflet.css'
-import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet'
-import { useState } from 'react'
 
-const Map = () => {
+import { useContext } from "react"
+import { MapContext } from "./map/provider"
 
-    const [coord, setCoord] = useState([51.505, -0.09])
+// export const Widget = () => {
+//     const context = useContext(MapContext);
+//     if (!context) {
+//         throw new Error('Counter must be used within a CounterProvider');
+//     }
+//     const { state, dispatch } = context;
+//     return (
+//         <div>
+//             Counter, Count: {state.count}
+//             <button onClick={() => dispatch({ type: 'increment' })}>+</button>
+//             <button onClick={() => dispatch({ type: 'decrement' })}>-</button>
+//         </div>
+//     );
+// };
 
-    const SearchLocation = () => {
-        return (
-            <div className="search-location">
-                <input type="text" placeholder="Search Location" />
-            </div>
-        )
+const GetMyLocation = () => {
+    const map = useMap();
+    const context = useContext(MapContext);
+    if (!context) {
+        throw new Error('Counter must be used within a CounterProvider');
     }
+    const { state, dispatch } = context;
+    const selfCoord = context?.state.self.coord;
 
-    const GetMyLocation = () => {
-        const getMyLocation = () => {
-            if (navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition((position) => {
-                    setCoord([position.coords.latitude, position.coords.longitude])
-                })
-            } else {
-                console.log("Geolocation is not supported by this browser.")
-            }
+    useEffect(()=>{
+        if (selfCoord) {
+            map.flyTo(selfCoord);    
         }
+    }, [map, selfCoord])
 
-        return (
-            <div className="get-my-location">
-                <button onClick={getMyLocation}>Get My Location</button>
-            </div>
-        )
+    const getMyLocation = () => {
+        console.log("getMyLocation");
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition((position) => {
+                console.log("currentPosition", position);
+                let pos: LatLngExpression = [position.coords.latitude, position.coords.longitude];
+                dispatch({ type: 'position', payload: pos} );
+            })
+        } else {
+            console.log("Geolocation is not supported by this browser.")
+        }
     }
 
     return (
+        <div className="get-my-location">
+            <button onClick={getMyLocation}>Get My Location</button>
+        </div>
+    )
+}
+
+const Map = ({initial = [51.505, -0.09]} : { initial?: LatLngExpression}) => {
+    const context = useContext(MapContext);
+    if (!context) {
+        throw new Error('Counter must be used within a CounterProvider');
+    }
+    const { state, dispatch } = context;
+    return (
         <div>
-            <SearchLocation />
-            <GetMyLocation />
-            <MapContainer style={{
-                height: '100vh',
-                width: '100vw'
-            }} center={coord} zoom={13} scrollWheelZoom={false}>
+            <MapContainer center={context.state.self.coord} zoom={13} scrollWheelZoom={true}>
+                <div className="map-controls">
+                    <GetMyLocation />
+                </div>
                 <TileLayer
                     attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                 />
-
-                <Marker icon={
-                    new L.Icon({
-                        iconUrl: MarkerIcon.src,
-                        iconRetinaUrl: MarkerIcon.src,
-                        iconSize: [25, 41],
-                        iconAnchor: [12.5, 41],
-                        popupAnchor: [0, -41],
-                        shadowUrl: MarkerShadow.src,
-                        shadowSize: [41, 41],
-                    })
-                } position={[51.505, -0.09]}>
-                     <Popup>
-                        A pretty CSS3 popup. <br /> Easily customizable.
-                    </Popup>
-                </Marker>
+                <CustomMarker position={context.state.self.coord} />
             </MapContainer>
         </div>
     )

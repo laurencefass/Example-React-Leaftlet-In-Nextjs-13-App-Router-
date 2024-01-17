@@ -73,10 +73,24 @@
   }
 }
 
+.leaflet-container {
+  max-width: 99%;
+  height: 90vh;
+  position: relative;
+}
+
+.map-controls {
+  position: absolute;
+  right: 10px;
+  width: 20%;
+  text-align: right;
+  border: 2px solid gray;
+}
+
 * {
   box-sizing: border-box;
-  padding: 0;
-  margin: 0;
+  margin: 10px;
+  z-index: 100 !important;
 }
 
 html,
@@ -85,7 +99,10 @@ body {
   overflow-x: hidden;
 }
 
+
 body {
+  border: 5px solid blue;
+  height: 100vh;
   color: rgb(var(--foreground-rgb));
   background: linear-gradient(
       to bottom,

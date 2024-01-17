@@ -1,0 +1,25 @@
+version: '3'
+
+services:
+  node-app:
+    image: node:18.17.0
+    hostname: nextmap
+    container_name: nextmap
+    environment:
+    - VIRTUAL_HOST=nextmap.syntapse.co.uk
+    - LETSENCRYPT_HOST=nextmap.syntapse.co.uk
+    - LETSENCRYPT_EMAIL=laurencefass@syntapse.co.uk
+    expose:
+      - "3000"
+    volumes:
+      - .:/app
+    working_dir: /app
+    # command: tail -f /dev/null
+    command: "npm run dev"
+    networks:
+      main-net: 
+
+networks:
+  main-net:
+    external:
+      name: proxy_main-net

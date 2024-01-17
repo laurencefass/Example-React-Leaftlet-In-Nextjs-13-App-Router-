@@ -9,7 +9,7 @@ const DynamicMap = dynamic(() => import('../components/Map'), {
 export default function Home() {
   return (
     <main>
-     <DynamicMap />
+      <h1>Home Page</h1>
     </main>
   )
 }

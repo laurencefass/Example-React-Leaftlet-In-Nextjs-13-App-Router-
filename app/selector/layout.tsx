@@ -14,7 +14,7 @@ export default function Layout({
   return (
     <html lang="en">
       <body>
-        <CounterProvider>{children}</CounterProvider>
+        {children}
       </body>
     </html>
   )

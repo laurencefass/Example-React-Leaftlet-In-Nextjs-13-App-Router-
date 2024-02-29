@@ -4,7 +4,7 @@ import dynamic from 'next/dynamic'
 import { useEffect } from 'react'
 
 const DynamicMap = dynamic(() => import('../../components/Map'), {
-  ssr: false
+    ssr: false
 });
 
 export function ClientMap() {
@@ -15,7 +15,7 @@ export function ClientMap() {
         }
     }, [])
 
-    return <main>
+    return <>
         <DynamicMap />
-    </main>
+    </>
 }

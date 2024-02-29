@@ -4,26 +4,65 @@ import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet'
 import { useEffect, useState } from 'react'
 import { LatLngExpression } from 'leaflet'
 import { CustomMarker } from './CustomMarker'
-
-import 'leaflet/dist/leaflet.css'
-
 import { useContext } from "react"
 import { MapContext } from "./map/provider"
 
-// export const Widget = () => {
-//     const context = useContext(MapContext);
-//     if (!context) {
-//         throw new Error('Counter must be used within a CounterProvider');
-//     }
-//     const { state, dispatch } = context;
-//     return (
-//         <div>
-//             Counter, Count: {state.count}
-//             <button onClick={() => dispatch({ type: 'increment' })}>+</button>
-//             <button onClick={() => dispatch({ type: 'decrement' })}>-</button>
-//         </div>
-//     );
-// };
+import 'leaflet/dist/leaflet.css'
+import { MiniMap } from './MiniMap'
+
+const CenterWidget = () => {
+    const context = useContext(MapContext);
+    const map = useMap();
+    function center() {
+        const self = context?.state.self.coord;
+        if (self)
+            map.flyTo(self);
+    }
+    return <>
+        <button onClick={center}>center</button>
+    </>
+}
+const RotationWidget = () => {
+    const map = useMap();
+    const [bearing, setBearing] = useState<number>(0);
+    const [handle, setHandle] = useState<any>();
+
+    useEffect(() => {
+        map.setBearing(bearing);
+    }, [bearing]);
+
+    useEffect(() => {
+        console.log("page load");
+        return () => {
+            stop();
+        }
+    }, []);
+
+    function reset() {
+        setBearing(0);
+    }
+
+    function start() {
+        handle && stop();
+        setHandle(setInterval(() => {
+            setBearing(bearing => {
+                return bearing + 1
+            });
+        }, 100));
+    }
+
+    function stop() {
+        if (handle)
+            clearInterval(handle);
+    }
+
+    return <div>
+        <span><b>Rotate</b></span>
+        <button onClick={start}>start</button>
+        <button onClick={stop}>stop</button>
+        <button onClick={reset}>reset</button>
+    </div>;
+}
 
 const GetMyLocation = () => {
     const map = useMap();
@@ -34,9 +73,9 @@ const GetMyLocation = () => {
     const { state, dispatch } = context;
     const selfCoord = context?.state.self.coord;
 
-    useEffect(()=>{
+    useEffect(() => {
         if (selfCoord) {
-            map.flyTo(selfCoord);    
+            map.flyTo(selfCoord);
         }
     }, [map, selfCoord])
 
@@ -46,7 +85,7 @@ const GetMyLocation = () => {
             navigator.geolocation.getCurrentPosition((position) => {
                 console.log("currentPosition", position);
                 let pos: LatLngExpression = [position.coords.latitude, position.coords.longitude];
-                dispatch({ type: 'position', payload: pos} );
+                dispatch({ type: 'position', payload: pos });
             })
         } else {
             console.log("Geolocation is not supported by this browser.")
@@ -60,17 +99,21 @@ const GetMyLocation = () => {
     )
 }
 
-const Map = ({initial = [51.505, -0.09]} : { initial?: LatLngExpression}) => {
+const Map = ({ initial = [51.505, -0.09] }: { initial?: LatLngExpression }) => {
     const context = useContext(MapContext);
     if (!context) {
         throw new Error('Counter must be used within a CounterProvider');
     }
     const { state, dispatch } = context;
+
     return (
         <div>
-            <MapContainer center={context.state.self.coord} zoom={13} scrollWheelZoom={true}>
+            <MapContainer rotate={true} center={context.state.self.coord} zoom={13} scrollWheelZoom={true}>
+                <MiniMap position="topleft" />
                 <div className="map-controls">
                     <GetMyLocation />
+                    <RotationWidget />
+                    <CenterWidget />
                 </div>
                 <TileLayer
                     attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'

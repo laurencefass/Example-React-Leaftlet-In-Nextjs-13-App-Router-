@@ -3,11 +3,29 @@ import MarkerShadow from '../node_modules/leaflet/dist/images/marker-shadow.png'
 import L from 'leaflet'
 import { Marker, Popup, useMap } from 'react-leaflet'
 import { LatLngExpression } from 'leaflet'
+import { useEffect, useRef } from 'react'
 
 export function CustomMarker({ position }: { position: LatLngExpression }) {
+    const markerRef = useRef<L.Marker>(null); // Ref to access the marker instance
     const map = useMap();
-    return <>
+
+    useEffect(() => {
+        if (markerRef.current) {
+            const marker = markerRef.current;
+            const onDragEnd = () => {
+                const newPosition = marker.getLatLng();
+                console.log(`position: ${newPosition.lat}, ${newPosition.lng}`);
+            };
+            marker.on('dragend', onDragEnd);
+            return () => {
+                marker.off('dragend', onDragEnd);
+            };
+        }
+    }, []);
+
+    return (
         <Marker
+            ref={markerRef} // Attach the ref to the Marker
             icon={new L.Icon({
                 iconUrl: MarkerIcon.src,
                 iconRetinaUrl: MarkerIcon.src,
@@ -24,5 +42,5 @@ export function CustomMarker({ position }: { position: LatLngExpression }) {
                 A pretty CSS3 popup. <br /> Easily customizable.
             </Popup>
         </Marker>
-    </>
+    );
 }

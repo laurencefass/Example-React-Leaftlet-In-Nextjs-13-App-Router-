@@ -9,6 +9,7 @@ import { MapContext } from "./map/provider"
 
 import 'leaflet/dist/leaflet.css'
 import { MiniMap } from './MiniMap'
+import HamburgerContent from './HamburgerContent/HamburgerContent'
 
 const CenterWidget = () => {
     const context = useContext(MapContext);
@@ -18,9 +19,9 @@ const CenterWidget = () => {
         if (self)
             map.flyTo(self);
     }
-    return <>
+    return <div>
         <button onClick={center}>center</button>
-    </>
+    </div>
 }
 const RotationWidget = () => {
     const map = useMap();
@@ -109,11 +110,16 @@ const Map = ({ initial = [51.505, -0.09] }: { initial?: LatLngExpression }) => {
     return (
         <div>
             <MapContainer rotate={true} center={context.state.self.coord} zoom={13} scrollWheelZoom={true}>
-                <MiniMap position="topleft" />
                 <div className="map-controls">
                     <GetMyLocation />
                     <RotationWidget />
                     <CenterWidget />
+                    <HamburgerContent >
+                        <MiniMap position="bottomright" zoomDiff={-2} />
+                    </HamburgerContent>
+                    <HamburgerContent >
+                        <MiniMap position="bottomright" zoomDiff={2} />
+                    </HamburgerContent>
                 </div>
                 <TileLayer
                     attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'

@@ -1,0 +1,28 @@
+/* styles.css */
+.hamburger-content {
+    bottom: 0;
+    right: 0;
+    z-index: 100; /* Ensure it's above most other elements */
+  }
+  
+  .hamburger-content button {
+    position: relative;
+    background-color: #333;
+    color: #fff;
+    cursor: pointer;
+    /* font-size: 20px; */
+    height: auto;
+  }
+  
+  .hamburger-content .content {
+    position: fixed;
+    bottom: -15px; /* Adjust so it doesn't overlap the button */
+    right: -25px;
+    z-index: 1000;
+    width: 100%;
+  }
+
+  .content .leaflet-container {
+    border: 2px solid red;
+    max-width:88vw !important;
+  }

@@ -20,7 +20,13 @@
       }
     ],
     "paths": {
-      "@/*": ["./*"]
+      "@/*": ["./*"],
+      "my-react-component/*": [
+        "../package-mono/my-react-component/dist/*"
+      ],
+      "my-react-component": [
+        "../package-mono/my-react-component/dist/index"
+      ]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],

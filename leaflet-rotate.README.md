@@ -1,8 +1,6 @@
 # Instructions for swapping out leaflet for leaflet-rotate-map
 
-This project is using a fork of leaflet which complete replaces the master. To make this work
-leaflet-rotate-map is being used as a direct replacement for leaflet master. There is no guarantee
-of future version parity.
+leaflet-rotate-map is being used replace some of the code in leaflet master which still doesnt support map rotation. There is no guarantee of future version parity.
 
 ## Steps to replace
 

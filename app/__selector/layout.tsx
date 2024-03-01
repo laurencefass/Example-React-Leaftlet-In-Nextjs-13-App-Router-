@@ -1,4 +1,4 @@
-import '../globals.css'
+import '/styles/globals.css'
 import { CounterProvider } from './CounterProvider'
 
 export const metadata = {

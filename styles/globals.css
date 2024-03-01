@@ -2,17 +2,21 @@
   box-sizing: border-box !important;
 }
 
-html,
+html {
+  padding: 0px;
+}
+
 body {
+  /* border: 5px solid blue; */
+  width: 100vw;
+  height: 100vh;
   padding: 0px;
   margin: 0px;
-  width: 100vw;
-  overflow-x: hidden;
 }
 
 main {
   position: relative;
-  border: 5px solid orange;
+  /* border: 5px solid orange; */
   height: 100vh;
 }
 
@@ -20,28 +24,25 @@ main {
   width: 100%;
   height: 99vh;
   position: relative;
-  border: 5px solid red;
+  border: 5px solid rgb(41, 41, 41);
 }
 
-body {
-  border: 5px solid blue;
-  width: 100vw;
-  height: 100vh;
-  padding: 0px;
-}
-
-html {
-  padding: 0px;
-}
 
 .map-controls {
   position: absolute;
+  display: flex;
+  justify-content: flex-end;
+  width: 100vw;
+  height: 80px;
   z-index: 500;
   right: 10px;
-  width: 25%;
   text-align: right;
   border: 2px solid gray;
   background: rgba(0, 0, 0, 0.25);
+}
+
+.map-controls * {
+  padding: 10px;
 }
 
 a {

@@ -1,4 +1,4 @@
-import '../globals.css'
+import '/styles/globals.css'
 import { Inter } from 'next/font/google'
 import { MapProvider } from '../../components/map/provider'
 

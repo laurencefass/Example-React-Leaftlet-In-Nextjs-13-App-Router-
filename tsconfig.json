@@ -21,11 +21,17 @@
     ],
     "paths": {
       "@/*": ["./*"],
-      "my-react-component/*": [
-        "../package-mono/my-react-component/dist/*"
+      "package1/*": [
+        "../package-mono/packages/package1/dist/*"
       ],
-      "my-react-component": [
-        "../package-mono/my-react-component/dist/index"
+      "package1": [
+        "../package-mono/packages/package1/dist/index"
+      ],
+      "package2/*": [
+        "../package-mono/packages/package2/dist/*"
+      ],
+      "package2": [
+        "../package-mono/packages/package2/dist/index"
       ]
     }
   },

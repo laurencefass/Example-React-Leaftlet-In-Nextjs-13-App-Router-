@@ -14,8 +14,10 @@ services:
       - "3000"
     volumes:
       - .:/app
-      - ../package-mono/my-react-component/dist:/app/node_modules/my-react-component/
-      - ../package-mono/my-react-component/node_modules:/app/node_modules/my-react-component/node_modules
+      - ../package-mono/packages/package1/dist:/app/node_modules/package1/
+      - ../package-mono/packages/package2/dist:/app/node_modules/package2/
+      - ../package-mono/node_modules:/app/node_modules/package1/node_modules
+      - ../package-mono/node_modules:/app/node_modules/package2/node_modules
     working_dir: /app
     # command: tail -f /dev/null
     command: "npm run dev"

@@ -1,4 +1,3 @@
-import { MyReactComponent } from "../../../package-mono/my-react-component/dist";
 import { ClientComponent } from "./client";
 
 export const dynamic = "force-dynamic";

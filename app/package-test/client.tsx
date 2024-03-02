@@ -8,6 +8,8 @@ import {
   Tab,
 } from "package1";
 
+import "./styles.css";
+
 export function ClientComponent() {
   return (
     <>

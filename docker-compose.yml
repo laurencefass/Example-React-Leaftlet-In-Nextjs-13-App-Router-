@@ -14,8 +14,11 @@ services:
       - "3000"
     volumes:
       - .:/app
+      # mount the package/dist as a node_module
       - ../package-mono/packages/package1/dist:/app/node_modules/package1/
       - ../package-mono/packages/package2/dist:/app/node_modules/package2/
+      # mount the root node_modules as the package/node_modules
+      # peer deps will need to be installed in the consumer project
       - ../package-mono/node_modules:/app/node_modules/package1/node_modules
       - ../package-mono/node_modules:/app/node_modules/package2/node_modules
     working_dir: /app

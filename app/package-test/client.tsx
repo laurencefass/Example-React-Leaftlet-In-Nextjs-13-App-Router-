@@ -35,6 +35,9 @@ export function ClientComponent() {
         <Tab title="two">
           <h1>two</h1>
         </Tab>
+        <Tab title="three">
+          <h1>three</h1>
+        </Tab>
       </TabContainer>
     </>
   );

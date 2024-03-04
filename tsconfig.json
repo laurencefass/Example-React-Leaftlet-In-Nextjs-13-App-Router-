@@ -21,17 +21,29 @@
     ],
     "paths": {
       "@/*": ["./*"],
-      "package1/*": [
-        "../package-mono/packages/package1/dist/*"
+      "react-rollup/*": [
+        "../package-mono/packages/react-rollup/dist/*"
       ],
-      "package1": [
-        "../package-mono/packages/package1/dist/index"
+      "react-rollup": [
+        "../package-mono/packages/react-rollup/dist/index"
       ],
-      "package2/*": [
-        "../package-mono/packages/package2/dist/*"
+      "react-babel/*": [
+        "../package-mono/packages/react-babel/dist/*"
       ],
-      "package2": [
-        "../package-mono/packages/package2/dist/index"
+      "react-babel": [
+        "../package-mono/packages/react-babel/dist/index"
+      ],
+      "react-ts/*": [
+        "../package-mono/packages/react-ts/dist/*"
+      ],
+      "react-ts": [
+        "../package-mono/packages/react-ts/dist/index"
+      ],
+      "esbuild/*": [
+        "../package-mono/packages/esbuild/dist/*"
+      ],
+      "esbuild": [
+        "../package-mono/packages/esbuild/dist/index"
       ]
     }
   },

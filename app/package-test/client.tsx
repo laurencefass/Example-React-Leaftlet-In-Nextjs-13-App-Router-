@@ -1,17 +1,24 @@
 "use client";
 
-import { Modal } from "package1";
 import {
   AccordionSection,
   AccordionContainer,
   TabContainer,
   Tab,
-} from "package1";
-
-import {
+  Modal,
   useScreenWidth,
-  useRouteChange
-} from "package1/hooks";
+  useRouteChange,
+  MyComponent as MyBabelComponent
+} from "react-babel";
+import {
+  helloWorld
+} from "esbuild";
+import {
+  MyComponent as MyTypescriptComponent
+} from "react-ts";
+import {
+  MyComponent as MyRollupComponent
+} from "react-rollup";
 
 import "./styles.css";
 
@@ -21,11 +28,15 @@ export function ClientComponent() {
     console.log("route changed");
   })
   return (
-    <>
+    <div className="content">
       <h1>Client</h1>
-      <p>imported useScreenWidth: {width}</p>
+      <h2>esbuild package output: {helloWorld()}</h2>
+      <h2>imported useScreenWidth: {width}</h2>
+      <MyBabelComponent />
+      <MyTypescriptComponent />
+      <MyRollupComponent />
       <Modal>
-        <h1>Modal content works</h1>
+        <h1>Modal content works!</h1>
       </Modal>
       <AccordionContainer>
         <AccordionSection title="one">
@@ -49,6 +60,6 @@ export function ClientComponent() {
           <h1>three</h1>
         </Tab>
       </TabContainer>
-    </>
+    </div>
   );
 }

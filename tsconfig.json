@@ -39,11 +39,11 @@
       "react-ts": [
         "../package-mono/packages/react-ts/dist/index"
       ],
-      "esbuild/*": [
-        "../package-mono/packages/esbuild/dist/*"
+      "esbuild-ts/*": [
+        "../package-mono/packages/esbuild-ts/dist/*"
       ],
-      "esbuild": [
-        "../package-mono/packages/esbuild/dist/index"
+      "esbuild-ts": [
+        "../package-mono/packages/esbuild-ts/dist/index"
       ]
     }
   },

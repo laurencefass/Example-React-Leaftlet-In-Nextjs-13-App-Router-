@@ -12,7 +12,7 @@ import {
 } from "react-babel";
 import {
   helloWorld
-} from "esbuild";
+} from "esbuild-ts";
 import {
   MyComponent as MyTypescriptComponent
 } from "react-ts";

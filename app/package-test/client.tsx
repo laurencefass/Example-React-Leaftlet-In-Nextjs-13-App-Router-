@@ -31,7 +31,7 @@ export function ClientComponent() {
     <div className="content">
       <h1>Client</h1>
       <h2>esbuild package output: {helloWorld()}</h2>
-      <h2>imported useScreenWidth: {width}</h2>
+      {width && <h2>imported useScreenWidth: {width}</h2>}
       <MyBabelComponent />
       <MyTypescriptComponent />
       <MyRollupComponent />

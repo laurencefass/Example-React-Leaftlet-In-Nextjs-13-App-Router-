@@ -8,12 +8,22 @@ import {
   Tab,
 } from "package1";
 
+import {
+  useScreenWidth,
+  useRouteChange
+} from "package1/hooks";
+
 import "./styles.css";
 
 export function ClientComponent() {
+  const width = useScreenWidth();
+  useRouteChange(() => {
+    console.log("route changed");
+  })
   return (
     <>
       <h1>Client</h1>
+      <p>imported useScreenWidth: {width}</p>
       <Modal>
         <h1>Modal content works</h1>
       </Modal>

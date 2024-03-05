@@ -28,13 +28,15 @@ export function ClientComponent() {
     console.log("route changed");
   })
   return (
-    <div className="content">
-      <h1>Client</h1>
-      <h2>esbuild package output: {helloWorld()}</h2>
-      {width && <h2>imported useScreenWidth: {width}</h2>}
+    <div>
+      <h1>React Component tests</h1>
       <MyBabelComponent />
       <MyTypescriptComponent />
       <MyRollupComponent />
+      <h1>Function tests</h1>
+      <h2>Functional package built with esbuild + ts, greeting: {helloWorld()}</h2>
+      {width && <h2>imported hook (useScreenWidth): {width}</h2>}
+      <h1>Imported reusable layout components</h1>
       <Modal>
         <h1>Modal content works!</h1>
       </Modal>
